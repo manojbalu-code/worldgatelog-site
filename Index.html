@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-i18n="meta.title">WorldGate Logistics — Futuristic Skin + Original Content</title>
+  <meta name="description" data-i18n="meta.desc" content="WorldGate Logistics delivers reliable air, ocean, and ground freight forwarding with customs brokerage, warehousing, and real‑time shipment tracking." />
+  <meta name="robots" content="index,follow" />
+
+  <!-- Tailwind (CDN for prototyping) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#effaff', 100:'#dff4ff', 200:'#b9e9ff', 300:'#7dd6ff', 400:'#3ec0ff', 500:'#0ea5e9', 600:'#06b6d4', 700:'#0ea5e9', 800:'#1f9eca', 900:'#0a4a65'
+            }
+          },
+          boxShadow: {
+            soft: '0 10px 25px -10px rgba(6, 182, 212, 0.35)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Global Futuristic Skin */
+    body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    .page-bg { background: radial-gradient(circle at 20% 20%, #0b0720 0%, #05010e 40%, #000 100%); }
+    .glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.12); }
+    .gradient-text { background: linear-gradient(90deg, #06b6d4, #9333ea); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .tilt { transform-style: preserve-3d; transition: transform .3s ease; }
+    .tilt:hover { transform: perspective(700px) rotateX(4deg) rotateY(-4deg); }
+    .fade-in { opacity: 0; transform: translateY(16px); transition: all .8s ease-out; }
+    .fade-in.show { opacity: 1; transform: translateY(0); }
+    #particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    header.sticky { background: rgba(3,7,18,0.6); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .ring-card { box-shadow: 0 10px 30px -12px rgba(6,182,212,.25); border: 1px solid rgba(255,255,255,0.08); }
+    /* Light theme background fallback */
+    .light .page-bg { background: radial-gradient(circle at 20% 20%, #f7fbff 0%, #eef6ff 40%, #e9f2ff 100%); }
+  </style>
+
+  <!-- Open Graph / basic SEO kept -->
+  <meta property="og:title" content="WorldGate Logistics — Freight Forwarding & Global Logistics" />
+  <meta property="og:description" content="Reliable air, ocean, and ground freight with customs brokerage, warehousing, and real‑time tracking." />
+  <meta property="og:type" content="website" />
+</head>
+<body class="dark text-slate-200 antialiased page-bg relative overflow-x-hidden">
+  <!-- particle canvas -->
+  <canvas id="particles"></canvas>
+
+  <!-- Top Bar (glass) -->
+  <div class="glass text-xs sm:text-sm relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between py-2">
+      <p class="hidden sm:block text-slate-300" data-i18n="top.tagline">Global Freight • Customs Brokerage • Warehousing</p>
+      <div class="flex items-center gap-2 sm:gap-4">
+        <!-- Language selector -->
+        <label for="langSelect" class="sr-only" data-i18n="a11y.language">Language</label>
+        <select id="langSelect" class="bg-black/30 border border-white/15 rounded-lg px-2 py-1 text-slate-100">
+          <option value="en">English</option>
+          <option value="zh">简体中文</option>
+          <option value="hi">हिन्दी</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+        </select>
+        <a class="hover:underline text-slate-100" href="tel:+13055550182" aria-label="Call us" data-i18n="top.phone">📞 +1 (305) 555‑0182</a>
+        <a class="hover:underline text-slate-100" href="mailto:hello@worldgatelog.com" aria-label="Email us" data-i18n="top.email">✉️ hello@worldgatelog.com</a>
+        <button id="quoteTopBtn" class="hidden md:inline-flex bg-gradient-to-r from-cyan-500 to-purple-600 transition text-white px-3 py-1.5 rounded-lg" data-i18n="cta.getQuote">Get a Quote</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header / Nav -->
+  <header class="sticky top-0 z-50 relative glass">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="#home" class="flex items-center gap-2 font-semibold">
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-purple-600 text-white shadow-soft">WG</span>
+          <span class="text-base sm:text-lg" data-i18n="brand">WorldGate Logistics</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6 text-sm">
+          <a class="hover:text-cyan-300" href="#services" data-i18n="nav.services">Services</a>
+          <a class="hover:text-cyan-300" href="#industries" data-i18n="nav.industries">Industries</a>
+          <a class="hover:text-cyan-300" href="#network" data-i18n="nav.network">Network</a>
+          <a class="hover:text-cyan-300" href="#tracking" data-i18n="nav.tracking">Tracking</a>
+          <a class="hover:text-cyan-300" href="#about" data-i18n="nav.about">About</a>
+          <a class="hover:text-cyan-300" href="#contact" data-i18n="nav.contact">Contact</a>
+          <a class="inline-flex items-center rounded-xl border border-white/20 px-3 py-1.5 hover:bg-white/5" href="#quote" data-i18n="nav.instantQuote">Instant Quote</a>
+        </nav>
+        <button id="mobileMenuBtn" class="md:hidden inline-flex items-center justify-center p-2 rounded-lg border border-white/15" aria-label="Open Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        </button>
+      </div>
+      <!-- Mobile menu -->
+      <div id="mobileMenu" class="hidden md:hidden border-t border-white/10 pb-4">
+        <div class="grid gap-2 pt-2 text-sm">
+          <a class="px-2 py-2 hover:bg-white/5 rounded" href="#services" data-i18n="nav.services">Services</a>
+          <a class="px-2 py-2 hover:bg-white/5 rounded" href="#industries" data-i18n="nav.industries">Industries</a>
+          <a class="px-2 py-2 hover:bg-white/5 rounded" href="#network" data-i18n="nav.network">Network</a>
+          <a class="px-2 py-2 hover:bg-white/5 rounded" href="#tracking" data-i18n="nav.tracking">Tracking</a>
+          <a class="px-2 py-2 hover:bg-white/5 rounded" href="#about" data-i18n="nav.about">About</a>
+          <a class="px-2 py-2 hover:bg-white/5 rounded" href="#contact" data-i18n="nav.contact">Contact</a>
+          <a class="px-2 py-2 hover:bg-white/5 rounded" href="#quote" data-i18n="nav.instantQuote">Instant Quote</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 items-center py-16 lg:py-24 relative z-10">
+      <div class="fade-in">
+        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight">
+          <span class="gradient-text" data-i18n="hero.head1">Global Freight Solutions,</span>
+          <span data-i18n="hero.head2">On Time, Every Time.</span>
+        </h1>
+        <p class="mt-5 text-lg text-slate-300" data-i18n="hero.sub">
+          End‑to‑end logistics across air, ocean, and ground with customs brokerage, warehousing, and real‑time visibility. Based in Miami with strong lanes to Dubai, India, and beyond.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-3">
+          <a href="#quote" class="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-purple-600 hover:opacity-90 text-white px-6 py-3 shadow-soft" data-i18n="cta.freeQuote">Get a Free Quote</a>
+          <a href="#tracking" class="inline-flex items-center justify-center rounded-xl border border-white/15 px-6 py-3 hover:bg-white/5" data-i18n="cta.track">Track Shipment</a>
+          <a href="tel:+13055550182" class="inline-flex items-center justify-center rounded-xl px-6 py-3 text-cyan-300 hover:underline" data-i18n="cta.call">Call: (305) 555‑0182</a>
+        </div>
+        <dl class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-6">
+          <div class="rounded-2xl glass p-4 ring-card">
+            <dt class="text-xs text-slate-400" data-i18n="kpi.ontime">On‑time Delivery</dt>
+            <dd class="text-2xl font-semibold">98.7%</dd>
+          </div>
+          <div class="rounded-2xl glass p-4 ring-card">
+            <dt class="text-xs text-slate-400" data-i18n="kpi.ports">Global Ports</dt>
+            <dd class="text-2xl font-semibold">120+</dd>
+          </div>
+          <div class="rounded-2xl glass p-4 ring-card">
+            <dt class="text-xs text-slate-400" data-i18n="kpi.years">Years Experience</dt>
+            <dd class="text-2xl font-semibold">20+</dd>
+          </div>
+          <div class="rounded-2xl glass p-4 ring-card">
+            <dt class="text-xs text-slate-400" data-i18n="kpi.clients">Happy Clients</dt>
+            <dd class="text-2xl font-semibold">1,500+</dd>
+          </div>
+        </dl>
+      </div>
+      <div class="relative fade-in">
+        <div class="aspect-[4/3] rounded-3xl glass ring-card flex items-center justify-center">
+          <div class="text-center p-6">
+            <p class="text-xs text-slate-400" data-i18n="hero.vessel1">Live Vessel ETA</p>
+            <p class="text-lg font-semibold">MSC Aurora — 3d 4h</p>
+            <p class="text-xs text-slate-400" data-i18n="hero.vessel2">PortMiami ➜ Jebel Ali</p>
+          </div>
+        </div>
+        <div class="absolute -bottom-6 -left-6 glass rounded-2xl p-4 ring-card w-60">
+          <p class="text-xs text-slate-400" data-i18n="hero.priority">Priority Lane</p>
+          <p class="text-sm" data-i18n="hero.lane">Miami ↔ Dubai</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="py-16 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <h2 class="text-3xl font-bold gradient-text" data-i18n="services.title">Services</h2>
+          <p class="mt-2 text-slate-300" data-i18n="services.sub">Flexible options across air, ocean, and ground to fit your timelines and budget.</p>
+        </div>
+        <a href="#quote" class="hidden sm:inline-flex text-sm px-4 py-2 rounded-xl border border-white/15 hover:bg-white/5" data-i18n="services.request">Request Pricing</a>
+      </div>
+
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <article class="group rounded-2xl glass p-6 ring-card tilt fade-in">
+          <div class="flex items-center gap-3">
+            <div class="h-10 w-10 rounded-xl bg-cyan-500/20 inline-flex items-center justify-center">✈️</div>
+            <h3 class="text-lg font-semibold" data-i18n="svc.air.title">Air Freight</h3>
+          </div>
+          <p class="mt-3 text-sm text-slate-300" data-i18n="svc.air.desc">Priority, standard, and consolidated air solutions with IATA partners for speed and reliability.</p>
+          <ul class="mt-4 text-sm list-disc pl-5 text-slate-300 space-y-1">
+            <li data-i18n="svc.air.li1">Door‑to‑Door & Door‑to‑Airport</li>
+            <li data-i18n="svc.air.li2">Hazmat & Temperature‑Controlled</li>
+            <li data-i18n="svc.air.li3">Charters & Hand‑Carry</li>
+          </ul>
+        </article>
+
+        <article class="group rounded-2xl glass p-6 ring-card tilt fade-in">
+          <div class="flex items-center gap-3">
+            <div class="h-10 w-10 rounded-xl bg-purple-500/20 inline-flex items-center justify-center">🚢</div>
+            <h3 class="text-lg font-semibold" data-i18n="svc.ocean.title">Ocean Freight</h3>
+          </div>
+          <p class="mt-3 text-sm text-slate-300" data-i18n="svc.ocean.desc">FCL, LCL, and breakbulk through a reliable carrier network with competitive contract rates.</p>
+          <ul class="mt-4 text-sm list-disc pl-5 text-slate-300 space-y-1">
+            <li data-i18n="svc.ocean.li1">FCL/LCL & Buyer’s Consolidation</li>
+            <li data-i18n="svc.ocean.li2">Project & OOG Cargo</li>
+            <li data-i18n="svc.ocean.li3">Port Drayage & Transload</li>
+          </ul>
+        </article>
+
+        <article class="group rounded-2xl glass p-6 ring-card tilt fade-in">
+          <div class="flex items-center gap-3">
+            <div class="h-10 w-10 rounded-xl bg-cyan-500/20 inline-flex items-center justify-center">🧾</div>
+            <h3 class="text-lg font-semibold" data-i18n="svc.customs.title">Customs Brokerage</h3>
+          </div>
+          <p class="mt-3 text-sm text-slate-300" data-i18n="svc.customs.desc">Licensed brokers handling documentation, duties, and compliance to clear your goods fast.</p>
+          <ul class="mt-4 text-sm list-disc pl-5 text-slate-300 space-y-1">
+            <li data-i18n="svc.customs.li1">ISF/AMS, HTS Classification</li>
+            <li data-i18n="svc.customs.li2">FDA, USDA, Fish & Wildlife</li>
+            <li data-i18n="svc.customs.li3">Bonded Entries & Drawback</li>
+          </ul>
+        </article>
+
+        <article class="group rounded-2xl glass p-6 ring-card tilt fade-in">
+          <div class="flex items-center gap-3">
+            <div class="h-10 w-10 rounded-xl bg-purple-500/20 inline-flex items-center justify-center">🏬</div>
+            <h3 class="text-lg font-semibold" data-i18n="svc.wh.title">Warehousing & 3PL</h3>
+          </div>
+          <p class="mt-3 text-sm text-slate-300" data-i18n="svc.wh.desc">Secure storage with inventory control, pick & pack, and last‑mile fulfillment.</p>
+          <ul class="mt-4 text-sm list-disc pl-5 text-slate-300 space-y-1">
+            <li data-i18n="svc.wh.li1">Bonded & FTZ Options</li>
+            <li data-i18n="svc.wh.li2">Cross‑Dock & Transload</li>
+            <li data-i18n="svc.wh.li3">eCommerce Fulfillment</li>
+          </ul>
+        </article>
+
+        <article class="group rounded-2xl glass p-6 ring-card tilt fade-in">
+          <div class="flex items-center gap-3">
+            <div class="h-10 w-10 rounded-xl bg-cyan-500/20 inline-flex items-center justify-center">🚚</div>
+            <h3 class="text-lg font-semibold" data-i18n="svc.truck.title">Trucking & Final Mile</h3>
+          </div>
+          <p class="mt-3 text-sm text-slate-300" data-i18n="svc.truck.desc">Nationwide ground network for drayage, FTL/LTL, and time‑definite deliveries.</p>
+          <ul class="mt-4 text-sm list-disc pl-5 text-slate-300 space-y-1">
+            <li data-i18n="svc.truck.li1">FTL/LTL & White‑Glove</li>
+            <li data-i18n="svc.truck.li2">Airport/Port Transfers</li>
+            <li data-i18n="svc.truck.li3">Appointment Deliveries</li>
+          </ul>
+        </article>
+
+        <article class="group rounded-2xl glass p-6 ring-card tilt fade-in">
+          <div class="flex items-center gap-3">
+            <div class="h-10 w-10 rounded-xl bg-purple-500/20 inline-flex items-center justify-center">🏗️</div>
+            <h3 class="text-lg font-semibold" data-i18n="svc.project.title">Project Cargo</h3>
+          </div>
+          <p class="mt-3 text-sm text-slate-300" data-i18n="svc.project.desc">Tailored solutions for heavy‑lift, OOG, and time‑critical movements with route surveys.</p>
+          <ul class="mt-4 text-sm list-disc pl-5 text-slate-300 space-y-1">
+            <li data-i18n="svc.project.li1">Charters & Special Equipment</li>
+            <li data-i18n="svc.project.li2">Permits & Escorts</li>
+            <li data-i18n="svc.project.li3">End‑to‑End Coordination</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Industries -->
+  <section id="industries" class="py-16 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold gradient-text" data-i18n="ind.title">Industries We Serve</h2>
+      <p class="mt-2 text-slate-300" data-i18n="ind.sub">Specialized handling for regulated and time‑sensitive cargo.</p>
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="rounded-2xl glass p-6 ring-card" data-i18n="ind.i1">💊 Healthcare & Pharma</div>
+        <div class="rounded-2xl glass p-6 ring-card" data-i18n="ind.i2">🍎 Perishables</div>
+        <div class="rounded-2xl glass p-6 ring-card" data-i18n="ind.i3">🚗 Automotive</div>
+        <div class="rounded-2xl glass p-6 ring-card" data-i18n="ind.i4">📦 eCommerce</div>
+        <div class="rounded-2xl glass p-6 ring-card" data-i18n="ind.i5">📱 Electronics</div>
+        <div class="rounded-2xl glass p-6 ring-card" data-i18n="ind.i6">👗 Fashion & Retail</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-16 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <div>
+          <h2 class="text-3xl font-bold gradient-text" data-i18n="why.title">Why Choose WorldGate?</h2>
+          <p class="mt-3 text-slate-300" data-i18n="why.sub">We combine global reach with hands‑on service so you get predictable outcomes and zero surprises.</p>
+          <ul class="mt-6 grid sm:grid-cols-2 gap-4 text-sm">
+            <li class="flex items-start gap-3"><span class="mt-0.5">✅</span><span><strong data-i18n="why.b1h">Global Network</strong> — <span data-i18n="why.b1">Strong lanes to Dubai, India, Europe, and Asia.</span></span></li>
+            <li class="flex items-start gap-3"><span class="mt-0.5">✅</span><span><strong data-i18n="why.b2h">Real‑Time Visibility</strong> — <span data-i18n="why.b2">Live tracking and milestone alerts.</span></span></li>
+            <li class="flex items-start gap-3"><span class="mt-0.5">✅</span><span><strong data-i18n="why.b3h">Compliance First</strong> — <span data-i18n="why.b3">Expert customs and regulatory guidance.</span></span></li>
+            <li class="flex items-start gap-3"><span class="mt-0.5">✅</span><span><strong data-i18n="why.b4h">Dedicated Support</strong> — <span data-i18n="why.b4">24/7 response for time‑critical cargo.</span></span></li>
+          </ul>
+        </div>
+        <div class="relative">
+          <div class="rounded-3xl glass p-6 ring-card">
+            <div class="grid grid-cols-2 gap-4">
+              <div class="rounded-2xl glass p-4 ring-card">
+                <p class="text-xs text-slate-400" data-i18n="why.k1">Average Customs Clearance</p>
+                <p class="text-2xl font-semibold">&lt; 24h</p>
+              </div>
+              <div class="rounded-2xl glass p-4 ring-card">
+                <p class="text-xs text-slate-400" data-i18n="why.k2">Damage Ratio</p>
+                <p class="text-2xl font-semibold">0.3%</p>
+              </div>
+              <div class="rounded-2xl glass p-4 ring-card">
+                <p class="text-xs text-slate-400" data-i18n="why.k3">Claims Resolved</p>
+                <p class="text-2xl font-semibold">100%</p>
+              </div>
+              <div class="rounded-2xl glass p-4 ring-card">
+                <p class="text-xs text-slate-400" data-i18n="why.k4">NPS</p>
+                <p class="text-2xl font-semibold">72</p>
+              </div>
+            </div>
+            <p class="mt-4 text-xs text-slate-400" data-i18n="why.note">* KPIs shown for illustration — replace with real metrics.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Network Map -->
+  <section id="network" class="py-16 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-end justify-between">
+        <div>
+          <h2 class="text-3xl font-bold gradient-text" data-i18n="net.title">Featured Lanes & Network</h2>
+          <p class="mt-2 text-slate-300" data-i18n="net.sub">Miami ↔ Dubai • Miami ↔ Mumbai • Europe ↔ USA</p>
+        </div>
+        <a href="#contact" class="hidden sm:inline-flex text-sm px-4 py-2 rounded-xl border border-white/15 hover:bg-white/5" data-i18n="net.cta">Talk to a Specialist</a>
+      </div>
+      <div class="mt-8 rounded-3xl glass p-4 ring-card">
+        <svg viewBox="0 0 800 400" role="img" aria-label="Stylized world map showing trade lanes" class="w-full h-auto rounded-2xl">
+          <defs>
+            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#06b6d4"/>
+              <stop offset="100%" stop-color="#9333ea"/>
+            </linearGradient>
+          </defs>
+          <rect width="800" height="400" fill="#0f172a" rx="16"/>
+          <circle cx="150" cy="300" r="6" fill="#06b6d4"/>
+          <text x="160" y="295" fill="#fff" font-size="14">Miami</text>
+          <circle cx="650" cy="150" r="6" fill="#9333ea"/>
+          <text x="660" y="145" fill="#fff" font-size="14">Dubai</text>
+          <circle cx="600" cy="200" r="6" fill="#06b6d4"/>
+          <text x="610" y="195" fill="#fff" font-size="14">Mumbai</text>
+          <path d="M150 300 C 300 200, 500 200, 650 150" stroke="url(#grad1)" stroke-width="3" fill="none" class="route"/>
+          <path d="M150 300 C 320 220, 520 220, 600 200" stroke="url(#grad1)" stroke-width="3" fill="none" class="route"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="py-16 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold gradient-text" data-i18n="how.title">How It Works</h2>
+      <ol class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <li class="rounded-2xl glass p-6 ring-card"><span class="text-xs text-slate-400" data-i18n="how.s1">Step 1</span><h3 class="font-semibold mt-1" data-i18n="how.h1">Request a Quote</h3><p class="text-sm text-slate-300 mt-2" data-i18n="how.p1">Tell us your cargo, origin/destination, and timelines.</p></li>
+        <li class="rounded-2xl glass p-6 ring-card"><span class="text-xs text-slate-400" data-i18n="how.s2">Step 2</span><h3 class="font-semibold mt-1" data-i18n="how.h2">Booking & Docs</h3><p class="text-sm text-slate-300 mt-2" data-i18n="how.p2">We secure space, handle compliance, and coordinate pickup.</p></li>
+        <li class="rounded-2xl glass p-6 ring-card"><span class="text-xs text-slate-400" data-i18n="how.s3">Step 3</span><h3 class="font-semibold mt-1" data-i18n="how.h3">In‑Transit Visibility</h3><p class="text-sm text-slate-300 mt-2" data-i18n="how.p3">Track milestones and get proactive updates 24/7.</p></li>
+        <li class="rounded-2xl glass p-6 ring-card"><span class="text-xs text-slate-400" data-i18n="how.s4">Step 4</span><h3 class="font-semibold mt-1" data-i18n="how.h4">Customs & Final Mile</h3><p class="text-sm text-slate-300 mt-2" data-i18n="how.p4">Fast clearance and scheduled delivery where you need it.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-16 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-end justify-between">
+        <div>
+          <h2 class="text-3xl font-bold gradient-text" data-i18n="test.title">Trusted by Growing Brands</h2>
+          <p class="mt-2 text-slate-300" data-i18n="test.sub">What our customers say</p>
+        </div>
+      </div>
+      <div class="mt-8 overflow-x-auto snap-x snap-mandatory flex gap-6 pb-4">
+        <figure class="min-w-[320px] max-w-md snap-start rounded-2xl glass p-6 ring-card shadow-sm">
+          <figcaption class="font-semibold">Amina K. — <span data-i18n="test.r1r">Import Manager</span></figcaption>
+          <p class="mt-1" aria-label="5 stars">★★★★★</p>
+          <blockquote class="text-slate-300 mt-2" data-i18n="test.r1">“WorldGate’s visibility and on‑time performance have transformed our inbound planning.”</blockquote>
+        </figure>
+        <figure class="min-w-[320px] max-w-md snap-start rounded-2xl glass p-6 ring-card shadow-sm">
+          <figcaption class="font-semibold">Daniel R. — <span data-i18n="test.r2r">Ops Director</span></figcaption>
+          <p class="mt-1" aria-label="5 stars">★★★★★</p>
+          <blockquote class="text-slate-300 mt-2" data-i18n="test.r2">“They navigated complex FDA clearance and still hit our launch date.”</blockquote>
+        </figure>
+        <figure class="min-w-[320px] max-w-md snap-start rounded-2xl glass p-6 ring-card shadow-sm">
+          <figcaption class="font-semibold">Priya S. — <span data-i18n="test.r3r">eCom Founder</span></figcaption>
+          <p class="mt-1" aria-label="5 stars">★★★★★</p>
+          <blockquote class="text-slate-300 mt-2" data-i18n="test.r3">“Pricing is transparent and support is truly 24/7 — highly recommend.”</blockquote>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Instant Quote -->
+  <section id="quote" class="py-16 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-10 items-start">
+        <div>
+          <h2 class="text-3xl font-bold gradient-text" data-i18n="quote.title">Get an Instant Quote</h2>
+          <p class="mt-2 text-slate-300" data-i18n="quote.sub">Share your shipment details and our team will respond within the hour.</p>
+          <ul class="mt-6 space-y-2 text-sm text-slate-300">
+            <li data-i18n="quote.li1">• Competitive contract and spot rates</li>
+            <li data-i18n="quote.li2">• Fast space confirmations on peak lanes</li>
+            <li data-i18n="quote.li3">• Dedicated account management</li>
+          </ul>
+        </div>
+        <form id="quoteForm" class="rounded-3xl glass p-6 ring-card">
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="text-sm" for="q_name" data-i18n="form.name">Your Name</label>
+              <input required id="q_name" name="name" type="text" class="mt-1 w-full rounded-xl bg-black/30 border border-white/10 focus:border-cyan-400 focus:ring-cyan-400" />
+            </div>
+            <div>
+              <label class="text-sm" for="q_company" data-i18n="form.company">Company</label>
+              <input id="q_company" name="company" type="text" class="mt-1 w-full rounded-xl bg-black/30 border border-white/10 focus:border-cyan-400 focus:ring-cyan-400" />
+            </div>
+            <div>
+              <label class="text-sm" for="q_email" data-i18n="form.email">Email</label>
+              <input required id="q_email" name="email" type="email" class="mt-1 w-full rounded-xl bg-black/30 border border-white/10 focus:border-cyan-400 focus:ring-cyan-400" />
+            </div>
+            <div>
+              <label class="text-sm" for="q_phone" data-i18n="form.phone">Phone</label>
+              <input id="q_phone" name="phone" type="tel" class="mt-1 w-full rounded-xl bg-black/30 border border-white/10 focus:border-cyan-400 focus:ring-cyan-400" />
+            </div>
+            <div>
+              <label class="text-sm" for="q_mode" data-i18n="form.mode">Mode</label>
+              <select required id="q_mode" name="mode" class="mt-1 w-full rounded-xl bg-black/30 border border-white/10 focus:border-cyan-400 focus:ring-cyan-400">
+                <option value="Air" data-i18n-opt="form.air">Air</option>
+                <option value="Ocean" data-i18n-opt="form.ocean">Ocean</option>
+                <option value="Truck" data-i18n-opt="form.truck">Truck</option>
+                <option value="Rail" data-i18n-opt="form.rail">Rail</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-sm" for="q_incoterm" data-i18n="form.incoterm">Incoterm</label>
+              <select id="q_incoterm" name="incoterm" class="mt-1 w-full rounded-xl bg-black/30 border border-white/10 focus:border-cyan-400 focus:ring-cyan-400">
+                <option value="EXW">EXW</option>
+                <option value="FOB">FOB</option>
+                <option value="CIF">CIF</option>
+                <option value="DAP">DAP</option>
+                <option value="DDP">DDP</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-sm" for="q_origin" data-i18n="form.origin">Origin</label>
+              <input required id="q_origin" name="origin" type="text" placeholder="City, Country" data-i18n-ph="form.originPh" class="mt-1 w-full rounded-xl bg-black/30 border border-white/10 focus:border-cyan-400 focus:ring-cyan-400" />
+            </div>
+            <div>
+              <label class="text-sm" for="q_destination" data-i18n="form.destination">Destination</label>
+              <input required id="q_destination" name="destination" type="text" placeholder="City, Country" data-i18n-ph="form.destPh" class="mt-1 w-full rounded-xl bg-black/30 border border-white/10 focus:border-cyan-400 focus:ring-cyan-400" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="text-sm" for="q_details" data-i18n="form.details">Cargo Details</label>
+              <textarea required id="q_details" name="details" rows="4" placeholder="Pieces, weight, dims, ready date, special handling" data-i18n-ph="form.detailsPh" class="mt-1 w-full rounded-xl bg-black/30 border border-white/10 focus:border-cyan-400 focus:ring-cyan-400"></textarea>
+            </div>
+          </div>
+          <div class="mt-4 flex items-center justify-between">
+            <label class="flex items-center gap-2 text-sm"><input type="checkbox" id="q_nda" class="rounded border-white/20 bg-black/30" /> <span data-i18n="form.nda">NDA Required</span></label>
+            <button class="inline-flex items-center rounded-xl bg-gradient-to-r from-cyan-500 to-purple-600 hover:opacity-90 text-white px-5 py-2.5" data-i18n="form.submit">Submit</button>
+          </div>
+          <p id="quoteMsg" class="mt-3 text-sm text-green-400 hidden" data-i18n="form.thanks">Thanks! A logistics specialist will contact you shortly.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tracking -->
+  <section id="tracking" class="py-16 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold gradient-text" data-i18n="track.title">Track Your Shipment</h2>
+      <div class="mt-6 grid lg:grid-cols-2 gap-8 items-start">
+        <form id="trackForm" class="rounded-3xl glass p-6 ring-card">
+          <label class="text-sm" for="t_number" data-i18n="track.label">Tracking / BOL / AWB #</label>
+          <div class="mt-1 flex gap-3">
+            <input id="t_number" required type="text" placeholder="e.g., WG123456789" data-i18n-ph="track.ph" class="w-full rounded-xl bg-black/30 border border-white/10 focus:border-cyan-400 focus:ring-cyan-400" />
+            <button class="rounded-xl bg-gradient-to-r from-cyan-500 to-purple-600 hover:opacity-90 text-white px-5" data-i18n="track.btn">Track</button>
+          </div>
+          <p class="text-xs text-slate-400 mt-2" data-i18n="track.note">For ocean shipments, you can also use container #.</p>
+        </form>
+        <div id="trackResult" class="rounded-3xl glass p-6 ring-card min-h-[180px] flex items-center justify-center text-slate-300" data-i18n="track.wait">
+          Enter a tracking number to see live status.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="py-16 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 items-center">
+      <div>
+        <h2 class="text-3xl font-bold gradient-text" data-i18n="about.title">About WorldGate Logistics</h2>
+        <p class="mt-3 text-slate-300" data-i18n="about.p">
+          We’re a Miami‑based freight forwarder helping businesses move goods across borders with speed, transparency, and compliance. Our team brings 20+ years of experience across air, ocean, and ground, backed by a trusted network of carriers and brokers.
+        </p>
+        <div class="mt-6 flex gap-3">
+          <a href="#contact" class="inline-flex items-center rounded-xl bg-gradient-to-r from-cyan-500 to-purple-600 hover:opacity-90 text-white px-5 py-2.5" data-i18n="about.cta1">Contact Sales</a>
+          <a href="#blog" class="inline-flex items-center rounded-xl border border-white/15 px-5 py-2.5 hover:bg-white/5" data-i18n="about.cta2">Blog</a>
+        </div>
+      </div>
+      <div class="aspect-[4/3] rounded-3xl glass ring-card flex items-center justify-center">
+        <span class="text-slate-400" data-i18n="about.img">Company image placeholder</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog / Insights -->
+  <section id="blog" class="py-16 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold gradient-text" data-i18n="blog.title">Insights</h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-3">
+        <article class="rounded-2xl glass p-5 ring-card">
+          <h3 class="font-semibold" data-i18n="blog.b1t">How to Cut Ocean Freight Costs in Peak Season</h3>
+          <p class="text-sm text-slate-300 mt-2" data-i18n="blog.b1p">Tactics for space protection, consolidation, and smart routing.</p>
+          <a href="#" class="text-cyan-300 text-sm mt-3 inline-block hover:underline" data-i18n="blog.read">Read more →</a>
+        </article>
+        <article class="rounded-2xl glass p-5 ring-card">
+          <h3 class="font-semibold" data-i18n="blog.b2t">Air vs. Ocean: When Time Really Is Money</h3>
+          <p class="text-sm text-slate-300 mt-2" data-i18n="blog.b2p">A practical framework for mode selection based on deadlines and risk.</p>
+          <a href="#" class="text-cyan-300 text-sm mt-3 inline-block hover:underline" data-i18n="blog.read">Read more →</a>
+        </article>
+        <article class="rounded-2xl glass p-5 ring-card">
+          <h3 class="font-semibold" data-i18n="blog.b3t">Customs Basics: Avoiding Holds & Exams</h3>
+          <p class="text-sm text-slate-300 mt-2" data-i18n="blog.b3p">Documentation, classification, and common pitfalls to avoid.</p>
+          <a href="#" class="text-cyan-300 text-sm mt-3 inline-block hover:underline" data-i18n="blog.read">Read more →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact & Footer -->
+  <footer id="contact" class="relative z-10 glass">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid md:grid-cols-4 gap-10">
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-2 font-semibold">
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-purple-600 text-white">WG</span>
+          <span data-i18n="brand">WorldGate Logistics</span>
+        </div>
+        <p class="mt-4 text-sm text-slate-300 max-w-md" data-i18n="foot.blurb">Reliable freight forwarding and logistics with global reach and local care.</p>
+        <div class="mt-4 flex gap-4 text-sm">
+          <a href="https://wa.me/13055550182" class="underline">WhatsApp</a>
+          <a href="https://www.linkedin.com/" class="underline">LinkedIn</a>
+          <a href="https://www.facebook.com/" class="underline">Facebook</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-semibold" data-i18n="foot.contact">Contact</h4>
+        <ul class="mt-3 space-y-1 text-sm text-slate-300">
+          <li data-i18n="foot.addr">📍 100 Logistics Way, Miami, FL 33101</li>
+          <li>📞 <a class="underline" href="tel:+13055550182">(305) 555‑0182</a></li>
+          <li>✉️ <a class="underline" href="mailto:hello@worldgatelog.com">hello@worldgatelog.com</a></li>
+          <li data-i18n="foot.hours">🕒 Mon–Fri 8:00–18:00</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold" data-i18n="foot.links">Quick Links</h4>
+        <ul class="mt-3 space-y-1 text-sm">
+          <li><a class="hover:underline" href="#services" data-i18n="nav.services">Services</a></li>
+          <li><a class="hover:underline" href="#industries" data-i18n="nav.industries">Industries</a></li>
+          <li><a class="hover:underline" href="#tracking" data-i18n="nav.tracking">Tracking</a></li>
+          <li><a class="hover:underline" href="#about" data-i18n="nav.about">About</a></li>
+          <li><a class="hover:underline" href="#quote" data-i18n="nav.instantQuote">Instant Quote</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
+        <p>© <span id="year"></span> <span data-i18n="brand">WorldGate Logistics</span>. <span data-i18n="foot.rights">All rights reserved.</span></p>
+        <div class="flex items-center gap-4">
+          <span>FIATA • IATA • ISO 9001</span>
+          <a href="#" class="underline" data-i18n="foot.privacy">Privacy</a>
+          <a href="#" class="underline" data-i18n="foot.terms">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Quote Modal -->
+  <div id="quoteModal" class="fixed inset-0 z-[60] hidden" role="dialog" aria-modal="true" aria-labelledby="quoteHeading">
+    <div class="absolute inset-0 bg-black/60" aria-hidden="true"></div>
+    <div class="relative mx-auto my-10 w-full max-w-2xl rounded-2xl glass p-6 ring-card">
+      <div class="flex items-center justify-between">
+        <h3 id="quoteHeading" class="text-xl font-semibold" data-i18n="modal.title">Quick Quote</h3>
+        <button aria-label="Close" id="closeQuote" class="rounded-lg p-2 hover:bg-white/5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414z" clip-rule="evenodd"/></svg>
+        </button>
+      </div>
+      <form id="quoteFormModal" class="mt-4 grid sm:grid-cols-2 gap-4">
+        <input required name="name" placeholder="Your Name" data-i18n-ph="form.name" class="rounded-xl bg-black/30 border border-white/10 focus:border-cyan-400 focus:ring-cyan-400" />
+        <input name="company" placeholder="Company" data-i18n-ph="form.company" class="rounded-xl bg-black/30 border border-white/10 focus:border-cyan-400 focus:ring-cyan-400" />
+        <input required type="email" name="email" placeholder="Email" data-i18n-ph="form.email" class="rounded-xl bg-black/30 border border-white/10 focus:border-cyan-400 focus:ring-cyan-400" />
+        <input type="tel" name="phone" placeholder="Phone" data-i18n-ph="form.phone" class="rounded-xl bg-black/30 border border-white/10 focus:border-cyan-400 focus:ring-cyan-400" />
+        <input required name="origin" placeholder="Origin (City, Country)" data-i18n-ph="form.originPh" class="rounded-xl bg-black/30 border border-white/10 focus:border-cyan-400 focus:ring-cyan-400 sm:col-span-2" />
+        <input required name="destination" placeholder="Destination (City, Country)" data-i18n-ph="form.destPh" class="rounded-xl bg-black/30 border border-white/10 focus:border-cyan-400 focus:ring-cyan-400 sm:col-span-2" />
+        <textarea required name="details" rows="4" placeholder="Cargo details" data-i18n-ph="form.detailsPh" class="rounded-xl bg-black/30 border border-white/10 focus:border-cyan-400 focus:ring-cyan-400 sm:col-span-2"></textarea>
+        <button class="sm:col-span-2 rounded-xl bg-gradient-to-r from-cyan-500 to-purple-600 hover:opacity-90 text-white px-5 py-2.5" data-i18n="form.send">Send</button>
+        <p id="quoteMsgModal" class="sm:col-span-2 text-sm text-green-400 hidden" data-i18n="form.sent">Sent! We’ll be in touch shortly.</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Back to top -->
+  <button id="toTop" class="fixed bottom-6 right-6 hidden rounded-full bg-gradient-to-br from-cyan-500 to-purple-600 text-white p-3 shadow-lg" aria-label="Back to top">↑</button>
+
+  <!-- Scripts -->
+  <script>
+    // ========= YEAR =========
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ========= MOBILE MENU =========
+    const mobBtn = document.getElementById('mobileMenuBtn');
+    const mobMenu = document.getElementById('mobileMenu');
+    mobBtn?.addEventListener('click', () => {
+      mobMenu.classList.toggle('hidden');
+      mobBtn.setAttribute('aria-expanded', mobMenu.classList.contains('hidden') ? 'false' : 'true');
+    });
+
+    // ========= QUOTE MODAL =========
+    const quoteModal = document.getElementById('quoteModal');
+    const quoteTopBtn = document.getElementById('quoteTopBtn');
+    const closeQuote = document.getElementById('closeQuote');
+    const openQuote = () => quoteModal.classList.remove('hidden');
+    const hideQuote = () => quoteModal.classList.add('hidden');
+    document.querySelectorAll('a[href="#quote"]').forEach(a => a.addEventListener('click', (e) => {
+      // Inline section kept; uncomment next two lines to use modal instead:
+      // e.preventDefault();
+      // openQuote();
+    }));
+    quoteTopBtn?.addEventListener('click', openQuote);
+    closeQuote?.addEventListener('click', hideQuote);
+    quoteModal?.addEventListener('click', (e) => { if (e.target === quoteModal) hideQuote(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !quoteModal.classList.contains('hidden')) hideQuote(); });
+
+    // ========= FORM DEMOS =========
+    const quoteMsg = document.getElementById('quoteMsg');
+    document.getElementById('quoteForm')?.addEventListener('submit', (e) => {
+      e.preventDefault(); quoteMsg.classList.remove('hidden'); e.target.reset();
+    });
+    const quoteMsgModal = document.getElementById('quoteMsgModal');
+    document.getElementById('quoteFormModal')?.addEventListener('submit', (e) => {
+      e.preventDefault(); quoteMsgModal.classList.remove('hidden'); setTimeout(hideQuote, 1200); e.target.reset();
+    });
+
+    // Tracking demo
+    const trackForm = document.getElementById('trackForm');
+    const trackResult = document.getElementById('trackResult');
+    trackForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const num = document.getElementById('t_number').value.trim();
+      if (!num) return;
+      const stage = ['Created','Picked up','In transit','Arrived at port','Customs cleared','Out for delivery','Delivered'];
+      const idx = Math.min(Math.floor(num.length % stage.length), stage.length - 1);
+      trackResult.setAttribute('data-i18n', '');
+      trackResult.innerHTML = `
+        <div class='w-full'>
+          <div class='flex items-center justify-between'>
+            <div>
+              <p class='text-xs text-slate-400'>Tracking #</p>
+              <p class='font-semibold'>${num}</p>
+            </div>
+            <span class='inline-flex items-center rounded-full bg-cyan-500/20 text-cyan-200 px-3 py-1 text-xs'>${stage[idx]}</span>
+          </div>
+          <ol class='mt-4 space-y-3'>
+            ${stage.map((s, i) => `
+              <li class='flex items-start gap-3'>
+                <span class='mt-1 h-2 w-2 rounded-full ${i <= idx ? 'bg-cyan-400' : 'bg-slate-600'}'></span>
+                <div>
+                  <p class='text-sm ${i <= idx ? 'text-white' : 'text-slate-400'}'>${s}</p>
+                  <p class='text-xs text-slate-500'>${new Date(Date.now() - (stage.length - i) * 86400000).toLocaleDateString()}</p>
+                </div>
+              </li>
+            `).join('')}
+          </ol>
+        </div>`;
+    });
+
+    // Back to top
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 600) toTop.classList.remove('hidden'); else toTop.classList.add('hidden');
+    });
+    toTop?.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+    // Scroll reveal
+    const observers = document.querySelectorAll('.fade-in');
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('show'); });
+    },{threshold:0.1});
+    observers.forEach(el=>io.observe(el));
+
+    // ========= PARTICLE CANVAS =========
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resizeCanvas); resizeCanvas();
+    for (let i = 0; i < 120; i++) {
+      particles.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2+0.5, dx: (Math.random()-0.5), dy: (Math.random()-0.5)});
+    }
+    function drawParticles() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle = document.documentElement.classList.contains('dark') ? 'rgba(6,182,212,0.9)' : 'rgba(79,70,229,0.8)';
+      particles.forEach(p=>{
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+        p.x += p.dx; p.y += p.dy;
+        if(p.x<0||p.x>canvas.width) p.dx*=-1;
+        if(p.y<0||p.y>canvas.height) p.dy*=-1;
+      });
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+
+    // ========= i18n (EN, ZH, HI, ES, FR) =========
+    const T = {
+      en: {
+        'meta.title':'WorldGate Logistics — Futuristic Skin + Original Content',
+        'meta.desc':'WorldGate Logistics delivers reliable air, ocean, and ground freight forwarding with customs brokerage, warehousing, and real‑time shipment tracking.',
+        'top.tagline':'Global Freight • Customs Brokerage • Warehousing',
+        'a11y.language':'Language',
+        'cta.getQuote':'Get a Quote',
+        'brand':'WorldGate Logistics',
+        'nav.services':'Services','nav.industries':'Industries','nav.network':'Network','nav.tracking':'Tracking','nav.about':'About','nav.contact':'Contact','nav.instantQuote':'Instant Quote',
+        'hero.head1':'Global Freight Solutions,','hero.head2':'On Time, Every Time.','hero.sub':'End‑to‑end logistics across air, ocean, and ground with customs brokerage, warehousing, and real‑time visibility. Based in Miami with strong lanes to Dubai, India, and beyond.',
+        'cta.freeQuote':'Get a Free Quote','cta.track':'Track Shipment','cta.call':'Call: (305) 555‑0182',
+        'kpi.ontime':'On‑time Delivery','kpi.ports':'Global Ports','kpi.years':'Years Experience','kpi.clients':'Happy Clients',
+        'hero.vessel1':'Live Vessel ETA','hero.vessel2':'PortMiami ➜ Jebel Ali','hero.priority':'Priority Lane','hero.lane':'Miami ↔ Dubai',
+        'services.title':'Services','services.sub':'Flexible options across air, ocean, and ground to fit your timelines and budget.','services.request':'Request Pricing',
+        'svc.air.title':'Air Freight','svc.air.desc':'Priority, standard, and consolidated air solutions with IATA partners for speed and reliability.','svc.air.li1':'Door‑to‑Door & Door‑to‑Airport','svc.air.li2':'Hazmat & Temperature‑Controlled','svc.air.li3':'Charters & Hand‑Carry',
+        'svc.ocean.title':'Ocean Freight','svc.ocean.desc':'FCL, LCL, and breakbulk through a reliable carrier network with competitive contract rates.','svc.ocean.li1':'FCL/LCL & Buyer’s Consolidation','svc.ocean.li2':'Project & OOG Cargo','svc.ocean.li3':'Port Drayage & Transload',
+        'svc.customs.title':'Customs Brokerage','svc.customs.desc':'Licensed brokers handling documentation, duties, and compliance to clear your goods fast.','svc.customs.li1':'ISF/AMS, HTS Classification','svc.customs.li2':'FDA, USDA, Fish & Wildlife','svc.customs.li3':'Bonded Entries & Drawback',
+        'svc.wh.title':'Warehousing & 3PL','svc.wh.desc':'Secure storage with inventory control, pick & pack, and last‑mile fulfillment.','svc.wh.li1':'Bonded & FTZ Options','svc.wh.li2':'Cross‑Dock & Transload','svc.wh.li3':'eCommerce Fulfillment',
+        'svc.truck.title':'Trucking & Final Mile','svc.truck.desc':'Nationwide ground network for drayage, FTL/LTL, and time‑definite deliveries.','svc.truck.li1':'FTL/LTL & White‑Glove','svc.truck.li2':'Airport/Port Transfers','svc.truck.li3':'Appointment Deliveries',
+        'svc.project.title':'Project Cargo','svc.project.desc':'Tailored solutions for heavy‑lift, OOG, and time‑critical movements with route surveys.','svc.project.li1':'Charters & Special Equipment','svc.project.li2':'Permits & Escorts','svc.project.li3':'End‑to‑End Coordination',
+        'ind.title':'Industries We Serve','ind.sub':'Specialized handling for regulated and time‑sensitive cargo.','ind.i1':'💊 Healthcare & Pharma','ind.i2':'🍎 Perishables','ind.i3':'🚗 Automotive','ind.i4':'📦 eCommerce','ind.i5':'📱 Electronics','ind.i6':'👗 Fashion & Retail',
+        'why.title':'Why Choose WorldGate?','why.sub':'We combine global reach with hands‑on service so you get predictable outcomes and zero surprises.',
+        'why.b1h':'Global Network','why.b1':'Strong lanes to Dubai, India, Europe, and Asia.','why.b2h':'Real‑Time Visibility','why.b2':'Live tracking and milestone alerts.','why.b3h':'Compliance First','why.b3':'Expert customs and regulatory guidance.','why.b4h':'Dedicated Support','why.b4':'24/7 response for time‑critical cargo.',
+        'why.k1':'Average Customs Clearance','why.k2':'Damage Ratio','why.k3':'Claims Resolved','why.k4':'NPS','why.note':'* KPIs shown for illustration — replace with real metrics.',
+        'net.title':'Featured Lanes & Network','net.sub':'Miami ↔ Dubai • Miami ↔ Mumbai • Europe ↔ USA','net.cta':'Talk to a Specialist',
+        'how.title':'How It Works','how.s1':'Step 1','how.h1':'Request a Quote','how.p1':'Tell us your cargo, origin/destination, and timelines.','how.s2':'Step 2','how.h2':'Booking & Docs','how.p2':'We secure space, handle compliance, and coordinate pickup.','how.s3':'Step 3','how.h3':'In‑Transit Visibility','how.p3':'Track milestones and get proactive updates 24/7.','how.s4':'Step 4','how.h4':'Customs & Final Mile','how.p4':'Fast clearance and scheduled delivery where you need it.',
+        'test.title':'Trusted by Growing Brands','test.sub':'What our customers say','test.r1r':'Import Manager','test.r1':'“WorldGate’s visibility and on‑time performance have transformed our inbound planning.”','test.r2r':'Ops Director','test.r2':'“They navigated complex FDA clearance and still hit our launch date.”','test.r3r':'eCom Founder','test.r3':'“Pricing is transparent and support is truly 24/7 — highly recommend.”',
+        'quote.title':'Get an Instant Quote','quote.sub':'Share your shipment details and our team will respond within the hour.','quote.li1':'• Competitive contract and spot rates','quote.li2':'• Fast space confirmations on peak lanes','quote.li3':'• Dedicated account management',
+        'form.name':'Your Name','form.company':'Company','form.email':'Email','form.phone':'Phone','form.mode':'Mode','form.incoterm':'Incoterm','form.origin':'Origin','form.destination':'Destination','form.details':'Cargo Details','form.nda':'NDA Required','form.submit':'Submit','form.thanks':'Thanks! A logistics specialist will contact you shortly.','form.send':'Send','form.sent':'Sent! We’ll be in touch shortly.',
+        'form.air':'Air','form.ocean':'Ocean','form.truck':'Truck','form.rail':'Rail','form.originPh':'City, Country','form.destPh':'City, Country','form.detailsPh':'Pieces, weight, dims, ready date, special handling',
+        'track.title':'Track Your Shipment','track.label':'Tracking / BOL / AWB #','track.ph':'e.g., WG123456789','track.btn':'Track','track.note':'For ocean shipments, you can also use container #.','track.wait':'Enter a tracking number to see live status.',
+        'about.title':'About WorldGate Logistics','about.p':'We’re a Miami‑based freight forwarder helping businesses move goods across borders with speed, transparency, and compliance. Our team brings 20+ years of experience across air, ocean, and ground, backed by a trusted network of carriers and brokers.','about.cta1':'Contact Sales','about.cta2':'Blog','about.img':'Company image placeholder',
+        'blog.title':'Insights','blog.b1t':'How to Cut Ocean Freight Costs in Peak Season','blog.b1p':'Tactics for space protection, consolidation, and smart routing.','blog.b2t':'Air vs. Ocean: When Time Really Is Money','blog.b2p':'A practical framework for mode selection based on deadlines and risk.','blog.b3t':'Customs Basics: Avoiding Holds & Exams','blog.b3p':'Documentation, classification, and common pitfalls to avoid.','blog.read':'Read more →',
+        'modal.title':'Quick Quote',
+        'foot.blurb':'Reliable freight forwarding and logistics with global reach and local care.','foot.contact':'Contact','foot.addr':'📍 100 Logistics Way, Miami, FL 33101','foot.hours':'🕒 Mon–Fri 8:00–18:00','foot.links':'Quick Links','foot.rights':'All rights reserved.','foot.privacy':'Privacy','foot.terms':'Terms'
+      },
+      zh: {
+        'meta.title':'WorldGate 物流 — 未来感外观 + 原创内容',
+        'meta.desc':'WorldGate 物流提供可靠的空运、海运与陆运服务，并提供报关、仓储以及实时跟踪。',
+        'top.tagline':'全球货运 • 报关代理 • 仓储',
+        'a11y.language':'语言',
+        'cta.getQuote':'获取报价',
+        'brand':'WorldGate 物流',
+        'nav.services':'服务','nav.industries':'行业','nav.network':'网络','nav.tracking':'跟踪','nav.about':'关于','nav.contact':'联系','nav.instantQuote':'即时报价',
+        'hero.head1':'全球货运解决方案，','hero.head2':'准时，次次准时。','hero.sub':'覆盖空运、海运与陆运的一站式物流，含报关、仓储与实时可视化。总部迈阿密，重点航线直达迪拜、印度等地。',
+        'cta.freeQuote':'免费获取报价','cta.track':'查询运单','cta.call':'致电: (305) 555‑0182',
+        'kpi.ontime':'准时交付','kpi.ports':'全球港口','kpi.years':'年行业经验','kpi.clients':'满意客户',
+        'hero.vessel1':'船期实时 ETA','hero.vessel2':'迈阿密港 ➜ 杰贝阿里','hero.priority':'优先航线','hero.lane':'迈阿密 ↔ 迪拜',
+        'services.title':'服务','services.sub':'空、海、陆灵活组合，满足时效与预算。','services.request':'索取价格',
+        'svc.air.title':'空运','svc.air.desc':'与 IATA 合作伙伴提供优先/标准/拼载空运，快速可靠。','svc.air.li1':'门到门 / 门到机场','svc.air.li2':'危品与冷链','svc.air.li3':'包机与专人携带',
+        'svc.ocean.title':'海运','svc.ocean.desc':'通过稳定船公司网络提供整箱、拼箱与散杂货，合同价具竞争力。','svc.ocean.li1':'整箱/拼箱与买家拼','svc.ocean.li2':'工程件与超限货','svc.ocean.li3':'拖车与中转',
+        'svc.customs.title':'报关代理','svc.customs.desc':'持证报关团队处理单证、税费与合规，高效放行。','svc.customs.li1':'ISF/AMS、税则归类','svc.customs.li2':'FDA、USDA、渔猎署','svc.customs.li3':'保函报关与退税',
+        'svc.wh.title':'仓储与三方物流','svc.wh.desc':'安全仓储，库存管理、分拣打包与末端履约。','svc.wh.li1':'保税与自贸区','svc.wh.li2':'交叉中转与短驳','svc.wh.li3':'电商履约',
+        'svc.truck.title':'卡车与末端配送','svc.truck.desc':'全美陆运网络，拖车、整车/零担与限时配送。','svc.truck.li1':'整车/零担与白手套','svc.truck.li2':'机场/港口接驳','svc.truck.li3':'预约配送',
+        'svc.project.title':'项目货','svc.project.desc':'重件、超限与紧急运输的定制解决方案，含线路勘察。','svc.project.li1':'包机与特种设备','svc.project.li2':'许可证与引导车','svc.project.li3':'端到端统筹',
+        'ind.title':'服务行业','ind.sub':'针对监管严格与时效敏感货物的专项操作。','ind.i1':'💊 医疗与医药','ind.i2':'🍎 生鲜易腐','ind.i3':'🚗 汽车','ind.i4':'📦 电商','ind.i5':'📱 电子','ind.i6':'👗 时尚零售',
+        'why.title':'为什么选择 WorldGate？','why.sub':'全球触达 + 深度服务，结果可预期、无惊无险。','why.b1h':'全球网络','why.b1':'重点航线覆盖迪拜、印度、欧洲与亚洲。','why.b2h':'实时可视化','why.b2':'里程碑跟踪与主动提醒。','why.b3h':'合规为先','why.b3':'报关与法规专家团队。','why.b4h':'专属支持','why.b4':'7×24 小时响应。',
+        'why.k1':'平均清关时长','why.k2':'破损率','why.k3':'理赔结案率','why.k4':'净推荐值','why.note':'* 指标为示例，建议替换为真实数据。',
+        'net.title':'核心航线与网络','net.sub':'迈阿密 ↔ 迪拜 • 迈阿密 ↔ 孟买 • 欧洲 ↔ 美国','net.cta':'联系顾问',
+        'how.title':'服务流程','how.s1':'第 1 步','how.h1':'提交询价','how.p1':'提供货物、起运/目的地与时效要求。','how.s2':'第 2 步','how.h2':'订舱与单证','how.p2':'锁定舱位，处理合规并预约提货。','how.s3':'第 3 步','how.h3':'在途可视化','how.p3':'里程碑跟踪，主动更新。','how.s4':'第 4 步','how.h4':'清关与派送','how.p4':'快速清关并按约送达。',
+        'test.title':'获得成长型品牌信赖','test.sub':'客户怎么说','test.r1r':'进口经理','test.r1':'“WorldGate 的可视化与准点率重塑了我们的入库计划。”','test.r2r':'运营总监','test.r2':'“在复杂 FDA 清关下仍如期上线。”','test.r3r':'电商创始人','test.r3':'“价格透明，支持真正 7×24 —— 强烈推荐。”',
+        'quote.title':'即时报价','quote.sub':'提交货运信息，我们将在一小时内回复。','quote.li1':'• 合同价与现货价竞争力强','quote.li2':'• 旺季舱位确认更快速','quote.li3':'• 专属客户经理',
+        'form.name':'您的姓名','form.company':'公司','form.email':'邮箱','form.phone':'电话','form.mode':'运输方式','form.incoterm':'贸易术语','form.origin':'起运地','form.destination':'目的地','form.details':'货物详情','form.nda':'需要保密协议','form.submit':'提交','form.thanks':'谢谢！物流专员将尽快联系您。','form.send':'发送','form.sent':'已发送！我们会尽快联系。',
+        'form.air':'空运','form.ocean':'海运','form.truck':'公路','form.rail':'铁路','form.originPh':'城市，国家','form.destPh':'城市，国家','form.detailsPh':'件数、重量、尺寸、备货日期、特殊要求',
+        'track.title':'查询运单','track.label':'运单号 / 提单号 / 空运单号','track.ph':'例如：WG123456789','track.btn':'查询','track.note':'海运也可使用箱号查询。','track.wait':'请输入号码以查看状态。',
+        'about.title':'关于 WorldGate 物流','about.p':'我们总部位于迈阿密，为企业提供跨境运输的高效、透明与合规服务。团队拥有 20+ 年空海陆经验与可信承运与报关网络。','about.cta1':'联系销售','about.cta2':'博客','about.img':'公司图片占位',
+        'blog.title':'洞见','blog.b1t':'旺季如何降低海运成本','blog.b1p':'舱位保障、拼箱与路径优化策略。','blog.b2t':'空运 vs. 海运：当时间就是金钱','blog.b2p':'根据时限与风险选择运输方式的实用框架。','blog.b3t':'报关基础：避免查验与延误','blog.b3p':'单证、归类与常见误区。','blog.read':'阅读全文 →',
+        'modal.title':'快速报价',
+        'foot.blurb':'全球能力与本地关怀，值得信赖的国际货代。','foot.contact':'联系','foot.addr':'📍 100 Logistics Way, 迈阿密, FL 33101','foot.hours':'🕒 周一至周五 8:00–18:00','foot.links':'快速链接','foot.rights':'版权所有。','foot.privacy':'隐私','foot.terms':'条款'
+      },
+      hi: {
+        'meta.title':'WorldGate Logistics — फ्यूचरिस्टिक लुक + मूल सामग्री',
+        'meta.desc':'WorldGate Logistics विश्वसनीय एयर, ओशन और ग्राउंड फ़्रेट के साथ कस्टम्स, वेयरहाउसिंग और रीयल‑टाइम ट्रैकिंग प्रदान करता है।',
+        'top.tagline':'ग्लोबल फ़्रेट • कस्टम्स ब्रोकरेज • वेयरहाउसिंग',
+        'a11y.language':'भाषा',
+        'cta.getQuote':'कोट पाएं',
+        'brand':'WorldGate लॉजिस्टिक्स',
+        'nav.services':'सेवाएँ','nav.industries':'उद्योग','nav.network':'नेटवर्क','nav.tracking':'ट्रैकिंग','nav.about':'हमारे बारे में','nav.contact':'संपर्क','nav.instantQuote':'तुरंत कोट',
+        'hero.head1':'वैश्विक फ़्रेट समाधान,','hero.head2':'हर बार समय पर।','hero.sub':'एयर, ओशन, और ग्राउंड में एंड‑टू‑एंड लॉजिस्टिक्स; कस्टम्स, वेयरहाउसिंग और रीयल‑टाइम विज़िबिलिटी के साथ। मियामी आधारित, दुबई, भारत आदि तक मज़बूत लेन।',
+        'cta.freeQuote':'फ्री कोट लें','cta.track':'शिपमेंट ट्रैक करें','cta.call':'कॉल: (305) 555‑0182',
+        'kpi.ontime':'समय पर डिलीवरी','kpi.ports':'वैश्विक पोर्ट','kpi.years':'वर्षों का अनुभव','kpi.clients':'संतुष्ट ग्राहक',
+        'hero.vessel1':'वessel ETA लाइव','hero.vessel2':'पोर्टमियामी ➜ जेबेल अली','hero.priority':'प्राथमिक लेन','hero.lane':'मियामी ↔ दुबई',
+        'services.title':'सेवाएँ','services.sub':'एयर, ओशन और ग्राउंड के लचीले विकल्प जो समय और बजट के अनुरूप हों।','services.request':'प्राइसिंग माँगें',
+        'svc.air.title':'एयर फ़्रेट','svc.air.desc':'IATA पार्टनर्स के साथ प्रायोरिटी/स्टैंडर्ड/कंसॉलिडेटेड एयर सॉल्यूशंस।','svc.air.li1':'डोर‑टू‑डोर / डोर‑टू‑एयरपोर्ट','svc.air.li2':'हैज़मैट व ताप नियंत्रित','svc.air.li3':'चार्टर व हैंड‑कैरी',
+        'svc.ocean.title':'ओशन फ़्रेट','svc.ocean.desc':'FCL, LCL व ब्रेकबल्क; भरोसेमंद कैरियर नेटवर्क और प्रतिस्पर्धी कॉन्ट्रैक्ट रेट।','svc.ocean.li1':'FCL/LCL व बायर्स कंसॉलिडेशन','svc.ocean.li2':'प्रोजेक्ट व OOG कार्गो','svc.ocean.li3':'पोर्ट ड्रेयज व ट्रांसलोड',
+        'svc.customs.title':'कस्टम्स ब्रोकरेज','svc.customs.desc':'लाइसेंस प्राप्त ब्रोकर्स दस्तावेज़, ड्यूटी और अनुपालन संभालते हैं।','svc.customs.li1':'ISF/AMS, HTS वर्गीकरण','svc.customs.li2':'FDA, USDA, फ़िश & वाइल्डलाइफ़','svc.customs.li3':'बॉन्डेड एंट्री व ड्रॉबैक',
+        'svc.wh.title':'वेयरहाउसिंग व 3PL','svc.wh.desc':'सुरक्षित स्टोरेज, इन्वेंटरी कंट्रोल, पिक‑पैक और लास्ट‑माइल फुलफिलमेंट।','svc.wh.li1':'बॉन्डेड व FTZ विकल्प','svc.wh.li2':'क्रॉस‑डॉक व ट्रांसलोड','svc.wh.li3':'ई‑कॉमर्स फुलफिलमेंट',
+        'svc.truck.title':'ट्रकिंग व फाइनल माइल','svc.truck.desc':'राष्ट्रव्यापी ग्राउंड नेटवर्क: ड्रेयज, FTL/LTL और समयबद्ध डिलीवरी।','svc.truck.li1':'FTL/LTL व व्हाइट‑ग्लव','svc.truck.li2':'एयरपोर्ट/पोर्ट ट्रांसफ़र','svc.truck.li3':'अपॉइंटमेंट डिलीवरी',
+        'svc.project.title':'प्रोजेक्ट कार्गो','svc.project.desc':'हेवी‑लिफ्ट, OOG और समय‑संवेदी मूवमेंट के लिए कस्टम समाधान।','svc.project.li1':'चार्टर व विशेष उपकरण','svc.project.li2':'परमिट व एस्कॉर्ट','svc.project.li3':'एंड‑टू‑एंड समन्वय',
+        'ind.title':'हम किन उद्योगों की सेवा करते हैं','ind.sub':'नियमित व समय‑संवेदी कार्गो के लिए विशेषज्ञ हैंडलिंग।','ind.i1':'💊 हेल्थकेयर व फ़ार्मा','ind.i2':'🍎 नाशीवंत','ind.i3':'🚗 ऑटोमोोटिव','ind.i4':'📦 ई‑कॉमर्स','ind.i5':'📱 इलेक्ट्रॉनिक्स','ind.i6':'👗 फ़ैशन व रिटेल',
+        'why.title':'WorldGate क्यों?','why.sub':'वैश्विक पहुँच + हैंड्स‑ऑन सेवा = भरोसेमंद परिणाम, बिना सरप्राइज़।',
+        'why.b1h':'वैश्विक नेटवर्क','why.b1':'दुबई, भारत, यूरोप और एशिया के मजबूत लेन।','why.b2h':'रीयल‑टाइम विज़िबिलिटी','why.b2':'लाइव ट्रैकिंग और माइलस्टोन अलर्ट।','why.b3h':'कंप्लायंस फर्स्ट','why.b3':'कस्टम्स और रेगुलेटरी विशेषज्ञ।','why.b4h':'समर्पित सपोर्ट','why.b4':'24/7 प्रतिक्रिया।',
+        'why.k1':'औसत क्लीयरेंस समय','why.k2':'डैमेज रेशियो','why.k3':'क्लेम निपटारा','why.k4':'NPS','why.note':'*示例指标—कृपया वास्तविक डेटा जोड़ें।',
+        'net.title':'प्रमुख लेन और नेटवर्क','net.sub':'मियामी ↔ दुबई • मियामी ↔ मुंबई • यूरोप ↔ अमेरिका','net.cta':'विशेषज्ञ से बात करें',
+        'how.title':'कैसे काम करता है','how.s1':'कदम 1','how.h1':'कोट का अनुरोध','how.p1':'कार्गो, ओरिजिन/डेस्टिनेशन और समयसीमा बताएं।','how.s2':'कदम 2','how.h2':'बुकिंग व डॉक्यूमेंट','how.p2':'हम स्पेस सुनिश्चित कर अनुपालन व पिकअप समन्वय करते हैं।','how.s3':'कदम 3','how.h3':'इन‑ट्रांज़िट विज़िबिलिटी','how.p3':'माइलस्टोन ट्रैक करें, 24/7 अपडेट।','how.s4':'कदम 4','how.h4':'कस्टम्स व फाइनल माइल','how.p4':'तेज़ क्लियरेंस और शेड्यूल्ड डिलीवरी।',
+        'test.title':'विकासशील ब्रांड्स का भरोसा','test.sub':'ग्राहक क्या कहते हैं','test.r1r':'आयात प्रबंधक','test.r1':'“WorldGate की विज़िबिलिटी और टाइमलाइनेस ने हमारी योजना बदल दी।”','test.r2r':'ऑप्स डायरेक्टर','test.r2':'“जटिल FDA क्लीयरेंस के बावजूद डेडलाइन मिली।”','test.r3r':'ई‑कॉम फाउंडर','test.r3':'“प्राइसिंग पारदर्शी, सपोर्ट सच‑मुच 24/7।”',
+        'quote.title':'तुरंत कोट पाएं','quote.sub':'विवरण साझा करें—हम एक घंटे में जवाब देंगे।','quote.li1':'• प्रतिस्पर्धी कॉन्ट्रैक्ट/स्पॉट रेट','quote.li2':'• पीक लेन में तेज़ कन्फर्मेशन','quote.li3':'• समर्पित अकाउंट मैनेजमेंट',
+        'form.name':'आपका नाम','form.company':'कंपनी','form.email':'ईमेल','form.phone':'फोन','form.mode':'मोड','form.incoterm':'इन्कोटर्म','form.origin':'उद्गम','form.destination':'गंतव्य','form.details':'कार्गो विवरण','form.nda':'NDA आवश्यक','form.submit':'सबमिट','form.thanks':'धन्यवाद! विशेषज्ञ शीघ्र संपर्क करेगा।','form.send':'भेजें','form.sent':'भेज दिया! हम जल्द संपर्क करेंगे।',
+        'form.air':'एयर','form.ocean':'ओशन','form.truck':'ट्रक','form.rail':'रेल','form.originPh':'शहर, देश','form.destPh':'शहर, देश','form.detailsPh':'पीस, वज़न, डाइमेंशन, रेडी डेट, विशेष हैंडलिंग',
+        'track.title':'अपना शिपमेंट ट्रैक करें','track.label':'ट्रैकिंग / BOL / AWB #','track.ph':'उदा., WG123456789','track.btn':'ट्रैक','track.note':'ओशन के लिए कंटेनर # भी चलेगा।','track.wait':'स्थिति देखने के लिए नंबर दर्ज करें।',
+        'about.title':'WorldGate लॉजिस्टिक्स के बारे में','about.p':'हम मियामी‑स्थित फ़्रेट फ़ॉरवर्डर हैं—तेज़, पारदर्शी और कंप्लायंट क्रॉस‑बॉर्डर मूवमेंट। 20+ वर्षों का अनुभव और विश्वसनीय नेटवर्क।','about.cta1':'सेल्स से संपर्क','about.cta2':'ब्लॉग','about.img':'कंपनी छवि प्लेसहोल्डर',
+        'blog.title':'इनसाइट्स','blog.b1t':'पीक सीज़न में ओशन लागत कैसे घटाएँ','blog.b1p':'स्पेस प्रोटेक्शन, कंसॉलिडेशन और स्मार्ट रूटिंग।','blog.b2t':'एयर बनाम ओशन: जब समय ही पैसा है','blog.b2p':'डेडलाइन और जोखिम के आधार पर चयन फ्रेमवर्क।','blog.b3t':'कस्टम्स बेसिक्स: होल्ड/एग्ज़ाम से बचें','blog.b3p':'डॉक्यूमेंटेशन, क्लासीफिकेशन और सामान्य गलतियाँ।','blog.read':'और पढ़ें →',
+        'modal.title':'क्विक कोट',
+        'foot.blurb':'वैश्विक पहुँच और स्थानीय देखभाल के साथ भरोसेमंद लॉजिस्टिक्स।','foot.contact':'संपर्क','foot.addr':'📍 100 Logistics Way, मियामी, FL 33101','foot.hours':'🕒 सोम–शुक्र 8:00–18:00','foot.links':'क्विक लिंक','foot.rights':'सर्वाधिकार सुरक्षित।','foot.privacy':'प्राइवेसी','foot.terms':'नियम'
+      },
+      es: {
+        'meta.title':'WorldGate Logistics — Estilo futurista + contenido original',
+        'meta.desc':'WorldGate Logistics ofrece transporte aéreo, marítimo y terrestre confiable, con agencia de aduanas, almacén y rastreo en tiempo real.',
+        'top.tagline':'Carga global • Agencia de aduanas • Almacenaje',
+        'a11y.language':'Idioma',
+        'cta.getQuote':'Obtener cotización',
+        'brand':'WorldGate Logistics',
+        'nav.services':'Servicios','nav.industries':'Industrias','nav.network':'Red','nav.tracking':'Rastreo','nav.about':'Acerca de','nav.contact':'Contacto','nav.instantQuote':'Cotización instantánea',
+        'hero.head1':'Soluciones de carga global,','hero.head2':'a tiempo, siempre.','hero.sub':'Logística integral por aire, mar y tierra con aduanas, almacén y visibilidad en tiempo real. Con base en Miami y rutas fuertes a Dubái, India y más.',
+        'cta.freeQuote':'Cotización gratis','cta.track':'Rastrear envío','cta.call':'Llamar: (305) 555‑0182',
+        'kpi.ontime':'Entrega puntual','kpi.ports':'Puertos globales','kpi.years':'Años de experiencia','kpi.clients':'Clientes satisfechos',
+        'hero.vessel1':'ETA de buque en vivo','hero.vessel2':'Puerto de Miami ➜ Jebel Ali','hero.priority':'Ruta prioritaria','hero.lane':'Miami ↔ Dubái',
+        'services.title':'Servicios','services.sub':'Opciones flexibles por aire, mar y tierra según tiempos y presupuesto.','services.request':'Solicitar precios',
+        'svc.air.title':'Carga aérea','svc.air.desc':'Soluciones prioritarias, estándar y consolidadas con socios IATA.','svc.air.li1':'Puerta a puerta / puerta a aeropuerto','svc.air.li2':'Peligrosas y temperatura controlada','svc.air.li3':'Charter y hand‑carry',
+        'svc.ocean.title':'Carga marítima','svc.ocean.desc':'FCL, LCL y breakbulk con red confiable y tarifas competitivas.','svc.ocean.li1':'FCL/LCL y consolidación','svc.ocean.li2':'Proyecto y carga OOG','svc.ocean.li3':'Arrastre portuario y transload',
+        'svc.customs.title':'Agencia de aduanas','svc.customs.desc':'Agentes licenciados gestionan documentación, aranceles y cumplimiento.','svc.customs.li1':'ISF/AMS, clasificación HTS','svc.customs.li2':'FDA, USDA, Pesca y Vida Silvestre','svc.customs.li3':'Entradas en fianza y drawback',
+        'svc.wh.title':'Almacenaje y 3PL','svc.wh.desc':'Almacenaje seguro, control de inventario, pick & pack y última milla.','svc.wh.li1':'Opciones en zona franca','svc.wh.li2':'Cross‑dock y transload','svc.wh.li3':'Cumplimiento e‑commerce',
+        'svc.truck.title':'Transporte terrestre','svc.truck.desc':'Red nacional para arrastre, FTL/LTL y entregas con hora definida.','svc.truck.li1':'FTL/LTL y guante blanco','svc.truck.li2':'Traslados aeropuerto/puerto','svc.truck.li3':'Entregas con cita',
+        'svc.project.title':'Carga de proyecto','svc.project.desc':'Soluciones a medida para sobredimensionadas y urgentes con estudios de ruta.','svc.project.li1':'Charter y equipo especial','svc.project.li2':'Permisos y escoltas','svc.project.li3':'Coordinación extremo a extremo',
+        'ind.title':'Industrias que atendemos','ind.sub':'Manejo especializado para carga regulada y sensible al tiempo.','ind.i1':'💊 Salud y farma','ind.i2':'🍎 Perecederos','ind.i3':'🚗 Automotriz','ind.i4':'📦 eCommerce','ind.i5':'📱 Electrónica','ind.i6':'👗 Moda y retail',
+        'why.title':'¿Por qué WorldGate?','why.sub':'Alcance global y servicio cercano para resultados predecibles, sin sorpresas.','why.b1h':'Red global','why.b1':'Rutas fuertes a Dubái, India, Europa y Asia.','why.b2h':'Visibilidad en tiempo real','why.b2':'Rastreo y alertas de hitos.','why.b3h':'Cumplimiento primero','why.b3':'Asesoría experta en regulaciones.','why.b4h':'Soporte dedicado','why.b4':'Respuesta 24/7.',
+        'why.k1':'Desaduanización promedio','why.k2':'Tasa de daños','why.k3':'Reclamos resueltos','why.k4':'NPS','why.note':'* Indicadores ilustrativos — reemplace por métricas reales.',
+        'net.title':'Rutas destacadas y red','net.sub':'Miami ↔ Dubái • Miami ↔ Mumbai • Europa ↔ EE. UU.','net.cta':'Hablar con un especialista',
+        'how.title':'Cómo funciona','how.s1':'Paso 1','how.h1':'Solicita cotización','how.p1':'Cuéntenos carga, origen/destino y tiempos.','how.s2':'Paso 2','how.h2':'Reserva y documentos','how.p2':'Aseguramos espacio, cumplimiento y recolección.','how.s3':'Paso 3','how.h3':'Visibilidad en tránsito','how.p3':'Seguimiento y actualizaciones proactivas 24/7.','how.s4':'Paso 4','how.h4':'Aduanas y última milla','how.p4':'Despacho rápido y entrega programada.',
+        'test.title':'Marcas en crecimiento confían','test.sub':'Lo que dicen nuestros clientes','test.r1r':'Gerente de importaciones','test.r1':'“La visibilidad y puntualidad de WorldGate transformó nuestra planificación.”','test.r2r':'Director de operaciones','test.r2':'“Superaron la FDA y cumplieron la fecha de lanzamiento.”','test.r3r':'Fundadora eCom','test.r3':'“Precios transparentes y soporte 24/7 real.”',
+        'quote.title':'Obtén una cotización instantánea','quote.sub':'Comparte detalles y responderemos dentro de la hora.','quote.li1':'• Tarifas contrato y spot competitivas','quote.li2':'• Confirmación rápida en picos','quote.li3':'• Gestión dedicada de cuentas',
+        'form.name':'Su nombre','form.company':'Empresa','form.email':'Correo','form.phone':'Teléfono','form.mode':'Modo','form.incoterm':'Incoterm','form.origin':'Origen','form.destination':'Destino','form.details':'Detalles de la carga','form.nda':'Requiere NDA','form.submit':'Enviar','form.thanks':'¡Gracias! Un especialista le contactará pronto.','form.send':'Enviar','form.sent':'¡Enviado! Nos pondremos en contacto.',
+        'form.air':'Aéreo','form.ocean':'Marítimo','form.truck':'Terrestre','form.rail':'Ferroviario','form.originPh':'Ciudad, País','form.destPh':'Ciudad, País','form.detailsPh':'Piezas, peso, medidas, fecha lista, manejo especial',
+        'track.title':'Rastrea tu envío','track.label':'Tracking / BOL / AWB #','track.ph':'ej.: WG123456789','track.btn':'Rastrear','track.note':'En marítimo, también sirve # de contenedor.','track.wait':'Ingresa un número para ver el estado.',
+        'about.title':'Acerca de WorldGate Logistics','about.p':'Transitamos mercancía transfronteriza con rapidez, transparencia y cumplimiento. 20+ años de experiencia y red confiable.','about.cta1':'Contactar ventas','about.cta2':'Blog','about.img':'Imagen de la empresa',
+        'blog.title':'Ideas','blog.b1t':'Cómo reducir costos marítimos en temporada alta','blog.b1p':'Protección de espacio, consolidación y rutas inteligentes.','blog.b2t':'Aéreo vs. marítimo: cuando el tiempo es dinero','blog.b2p':'Marco práctico según plazos y riesgos.','blog.b3t':'Aduanas básicas: evita retenciones','blog.b3p':'Documentación, clasificación y errores comunes.','blog.read':'Leer más →',
+        'modal.title':'Cotización rápida',
+        'foot.blurb':'Logística confiable con alcance global y atención local.','foot.contact':'Contacto','foot.addr':'📍 100 Logistics Way, Miami, FL 33101','foot.hours':'🕒 Lun–Vie 8:00–18:00','foot.links':'Enlaces rápidos','foot.rights':'Todos los derechos reservados.','foot.privacy':'Privacidad','foot.terms':'Términos'
+      },
+      fr: {
+        'meta.title':'WorldGate Logistics — Style futuriste + contenu original',
+        'meta.desc':'WorldGate Logistics assure des transports aériens, maritimes et routiers fiables, avec dédouanement, entrepôt et suivi en temps réel.',
+        'top.tagline':'Fret mondial • Courtage en douane • Entrepôt',
+        'a11y.language':'Langue',
+        'cta.getQuote':'Obtenir un devis',
+        'brand':'WorldGate Logistics',
+        'nav.services':'Services','nav.industries':'Secteurs','nav.network':'Réseau','nav.tracking':'Suivi','nav.about':'À propos','nav.contact':'Contact','nav.instantQuote':'Devis instantané',
+        'hero.head1':'Solutions de fret global,','hero.head2':'à l’heure, à chaque fois.','hero.sub':'Logistique bout‑en‑bout air/mer/route avec douane, entrepôt et visibilité temps réel. Basés à Miami, fortes liaisons vers Dubaï, l’Inde, etc.',
+        'cta.freeQuote':'Devis gratuit','cta.track':'Suivre un envoi','cta.call':'Appeler : (305) 555‑0182',
+        'kpi.ontime':'Livraison à l’heure','kpi.ports':'Ports mondiaux','kpi.years':'Années d’expérience','kpi.clients':'Clients satisfaits',
+        'hero.vessel1':'ETA navire en direct','hero.vessel2':'PortMiami ➜ Jebel Ali','hero.priority':'Liaison prioritaire','hero.lane':'Miami ↔ Dubaï',
+        'services.title':'Services','services.sub':'Options flexibles air/mer/route selon délais et budget.','services.request':'Demander les tarifs',
+        'svc.air.title':'Fret aérien','svc.air.desc':'Solutions prioritaires, standard et consolidées avec partenaires IATA.','svc.air.li1':'Porte à porte / porte‑aéroport','svc.air.li2':'Matières dangereuses & chaîne du froid','svc.air.li3':'Charters & hand‑carry',
+        'svc.ocean.title':'Fret maritime','svc.ocean.desc':'FCL, LCL et breakbulk via un réseau fiable et des tarifs compétitifs.','svc.ocean.li1':'FCL/LCL & consolidation','svc.ocean.li2':'Projet & OOG','svc.ocean.li3':'Drayage & transbordement',
+        'svc.customs.title':'Dédouanement','svc.customs.desc':'Courtiers agréés : documents, droits et conformité.','svc.customs.li1':'ISF/AMS, classification HTS','svc.customs.li2':'FDA, USDA, Pêche & Faune','svc.customs.li3':'Entrées sous caution & drawback',
+        'svc.wh.title':'Entrepôt & 3PL','svc.wh.desc':'Stockage sécurisé, inventaire, pick & pack et dernier km.','svc.wh.li1':'Sous douane & FTZ','svc.wh.li2':'Cross‑dock & transload','svc.wh.li3':'Exécution e‑commerce',
+        'svc.truck.title':'Routier & dernier km','svc.truck.desc':'Réseau national pour drayage, FTL/LTL et livraisons à heure définie.','svc.truck.li1':'FTL/LTL & gants blancs','svc.truck.li2':'Transferts aéroport/port','svc.truck.li3':'Livraisons sur RDV',
+        'svc.project.title':'Projets','svc.project.desc':'Solutions sur mesure pour lourds, hors‑gabarit et urgents, avec études d’itinéraire.','svc.project.li1':'Charters & équipements spéciaux','svc.project.li2':'Permis & escortes','svc.project.li3':'Coordination de bout en bout',
+        'ind.title':'Secteurs servis','ind.sub':'Manutention spécialisée pour cargaisons réglementées et sensibles au temps.','ind.i1':'💊 Santé & Pharma','ind.i2':'🍎 Produits frais','ind.i3':'🚗 Automobile','ind.i4':'📦 e‑commerce','ind.i5':'📱 Électronique','ind.i6':'👗 Mode & Retail',
+        'why.title':'Pourquoi WorldGate ?','why.sub':'Portée mondiale et service de proximité : des résultats prévisibles, sans surprise.','why.b1h':'Réseau mondial','why.b1':'Liaisons fortes vers Dubaï, l’Inde, l’Europe et l’Asie.','why.b2h':'Visibilité temps réel','why.b2':'Suivi et alertes de jalons.','why.b3h':'Conformité d’abord','why.b3':'Experts douane et réglementation.','why.b4h':'Support dédié','why.b4':'Réponse 24/7.',
+        'why.k1':'Dédouanement moyen','why.k2':'Taux d’avarie','why.k3':'Réclamations résolues','why.k4':'NPS','why.note':'* Indicateurs illustratifs — remplacez par vos métriques.',
+        'net.title':'Liaisons & réseau','net.sub':'Miami ↔ Dubaï • Miami ↔ Mumbai • Europe ↔ USA','net.cta':'Parler à un spécialiste',
+        'how.title':'Mode opératoire','how.s1':'Étape 1','how.h1':'Demander un devis','how.p1':'Dites‑nous la cargaison, l’origine/destination et les délais.','how.s2':'Étape 2','how.h2':'Réservation & docs','how.p2':'Nous sécurisons l’espace, la conformité et l’enlèvement.','how.s3':'Étape 3','how.h3':'Visibilité en transit','how.p3':'Suivi et mises à jour 24/7.','how.s4':'Étape 4','how.h4':'Douane & dernier km','how.p4':'Dédouanement rapide et livraison planifiée.',
+        'test.title':'Plébiscité par des marques en croissance','test.sub':'Témoignages','test.r1r':'Resp. import','test.r1':'« La visibilité et la ponctualité ont transformé notre planification. »','test.r2r':'Directeur des ops','test.r2':'« Malgré la FDA, nous avons tenu le lancement. »','test.r3r':'Fondatrice eCom','test.r3':'« Tarifs transparents et vrai support 24/7. »',
+        'quote.title':'Devis instantané','quote.sub':'Partagez les détails et nous répondons sous une heure.','quote.li1':'• Tarifs contrat et spot compétitifs','quote.li2':'• Confirmations rapides en pic','quote.li3':'• Gestion de compte dédiée',
+        'form.name':'Votre nom','form.company':'Société','form.email':'E‑mail','form.phone':'Téléphone','form.mode':'Mode','form.incoterm':'Incoterm','form.origin':'Origine','form.destination':'Destination','form.details':'Détails de la cargaison','form.nda':'NDA requis','form.submit':'Envoyer','form.thanks':'Merci ! Un spécialiste vous contactera rapidement.','form.send':'Envoyer','form.sent':'Envoyé ! Nous revenons vers vous.',
+        'form.air':'Aérien','form.ocean':'Maritime','form.truck':'Routier','form.rail':'Ferroviaire','form.originPh':'Ville, Pays','form.destPh':'Ville, Pays','form.detailsPh':'Colis, poids, dimensions, date prête, manutention spéciale',
+        'track.title':'Suivre votre envoi','track.label':'Tracking / BOL / AWB #','track.ph':'ex. : WG123456789','track.btn':'Suivre','track.note':'En maritime : aussi via # de conteneur.','track.wait':'Saisissez un numéro pour voir l’état.',
+        'about.title':'À propos de WorldGate Logistics','about.p':'Transports transfrontaliers rapides, transparents et conformes. 20+ ans d’expérience et réseau fiable.','about.cta1':'Contacter les ventes','about.cta2':'Blog','about.img':'Visuel entreprise',
+        'blog.title':'Analyses','blog.b1t':'Réduire les coûts maritimes en haute saison','blog.b1p':'Protection d’espace, consolidation et itinéraires malins.','blog.b2t':'Aérien vs. maritime : le temps c’est l’argent','blog.b2p':'Cadre de choix selon délais et risques.','blog.b3t':'Bases douane : éviter blocages','blog.b3p':'Docs, classification et écueils.','blog.read':'Lire →',
+        'modal.title':'Devis rapide',
+        'foot.blurb':'Logistique fiable, portée mondiale et service local.','foot.contact':'Contact','foot.addr':'📍 100 Logistics Way, Miami, FL 33101','foot.hours':'🕒 Lun–Ven 8:00–18:00','foot.links':'Liens rapides','foot.rights':'Tous droits réservés.','foot.privacy':'Confidentialité','foot.terms':'Conditions'
+      }
+    };
+
+    function applyTranslations(lang) {
+      const dict = T[lang] || T.en;
+      // Update text nodes
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (!key) return;
+        if (dict[key]) el.textContent = dict[key];
+      });
+      // Update placeholders
+      document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+        const key = el.getAttribute('data-i18n-ph');
+        if (dict[key]) el.setAttribute('placeholder', dict[key]);
+      });
+      // Update option text
+      document.querySelectorAll('[data-i18n-opt]').forEach(opt => {
+        const key = opt.getAttribute('data-i18n-opt');
+        if (dict[key]) opt.textContent = dict[key];
+      });
+      // Update <title> and meta[description]
+      const titleEl = document.querySelector('title[data-i18n="meta.title"]');
+      const metaDesc = document.querySelector('meta[name="description"][data-i18n="meta.desc"]');
+      if (dict['meta.title'] && titleEl) titleEl.textContent = dict['meta.title'];
+      if (dict['meta.desc'] && metaDesc) metaDesc.setAttribute('content', dict['meta.desc']);
+      // Set <html lang="">
+      document.documentElement.setAttribute('lang', lang);
+    }
+
+    // ========= LANGUAGE SELECTOR =========
+    const langSelect = document.getElementById('langSelect');
+    function setLanguage(lang) {
+      localStorage.setItem('wg_lang', lang);
+      applyTranslations(lang);
+    }
+    const savedLang = localStorage.getItem('wg_lang') || (navigator.language || 'en').slice(0,2);
+    const initialLang = ['en','zh','hi','es','fr'].includes(savedLang) ? savedLang : 'en';
+    langSelect.value = initialLang;
+    applyTranslations(initialLang);
+    langSelect.addEventListener('change', (e)=> setLanguage(e.target.value));
+
+    // ========= AUTO THEME BY LOCAL TIME =========
+    // Rule: 07:00–18:59 -> light; 19:00–06:59 -> dark
+    function themeByTime(date = new Date()) {
+      const h = date.getHours();
+      return (h >= 7 && h <= 18) ? 'light' : 'dark';
+    }
+    function applyTheme(theme){
+      const root = document.documentElement;
+      if (theme === 'dark') { root.classList.add('dark'); root.classList.remove('light'); }
+      else { root.classList.remove('dark'); root.classList.add('light'); }
+      localStorage.setItem('wg_theme', theme);
+    }
+    // Respect saved theme if present; otherwise choose by time at first visit
+    const savedTheme = localStorage.getItem('wg_theme');
+    applyTheme(savedTheme || themeByTime());
+
+    // Re-evaluate theme at the next hour boundary to adapt automatically
+    (function scheduleThemeTick(){
+      const now = new Date();
+      const msToNextMinute = (60 - now.getSeconds())*1000 + 50;
+      setTimeout(()=>{
+        const newTheme = themeByTime();
+        const current = document.documentElement.classList.contains('dark') ? 'dark':'light';
+        if (newTheme !== current) applyTheme(newTheme);
+        scheduleThemeTick();
+      }, msToNextMinute);
+    })();
+
+    // ========= DONE =========
+  </script>
+</body>
+</html>
+
